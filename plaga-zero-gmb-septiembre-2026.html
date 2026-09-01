@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Dashboard interactivo de publicaciones para Google Business Profile de Plaga Zero, septiembre de 2026.">
+  <meta name="color-scheme" content="dark">
+  <title>Plaga Zero · Calendario GMB · Septiembre 2026</title>
+  <style>
+    :root{
+      --bg:#050706;--bg-2:#080c09;--surface:#0d120f;--surface-2:#111813;--surface-3:#151e18;
+      --ink:#f4f8f4;--muted:#9bac9e;--muted-2:#718176;--line:rgba(220,255,227,.12);
+      --green:#8bcf42;--green-2:#49b968;--green-3:#c9f29e;--teal:#0a5765;
+      --amber:#ffc45b;--blue:#79baff;--red:#ff7c72;--purple:#c299ff;
+      --shadow:0 24px 70px rgba(0,0,0,.34);--radius:22px;--radius-sm:14px;
+      --max:1320px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--bg)}
+    body{margin:0;color:var(--ink);background:
+      radial-gradient(circle at 88% -5%,rgba(139,207,66,.13),transparent 30%),
+      radial-gradient(circle at 8% 18%,rgba(10,87,101,.13),transparent 25%),var(--bg);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased;line-height:1.55}
+    button,input,select,textarea{font:inherit}
+    button,a,select,input,textarea{-webkit-tap-highlight-color:transparent}
+    a{color:inherit}
+    img{max-width:100%;display:block}
+    h1,h2,h3,p{margin-top:0}
+    button{cursor:pointer}
+    .skip-link{position:fixed;left:16px;top:-80px;z-index:999;padding:12px 16px;border-radius:10px;background:var(--green);color:#071006;font-weight:800;transition:.2s}
+    .skip-link:focus{top:16px}
+    :focus-visible{outline:3px solid var(--green-3);outline-offset:3px}
+    .shell{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+    .topbar{position:sticky;top:0;z-index:80;border-bottom:1px solid var(--line);background:rgba(5,7,6,.88);backdrop-filter:blur(18px)}
+    .topbar-inner{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:15px;text-decoration:none;min-width:270px}
+    .brand-logo-box{position:relative;width:220px;min-height:48px;display:flex;align-items:center;padding:7px 12px;border:1px solid rgba(139,207,66,.22);border-radius:13px;background:#f8faf8;overflow:hidden}
+    .brand-logo-box img{position:relative;z-index:2;display:block;width:196px;height:auto}
+    .brand-fallback{position:absolute;z-index:1;inset:7px 12px;display:flex;align-items:center;gap:10px;color:#07100a;font-weight:900;letter-spacing:.06em}
+    .brand-fallback .fallback-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--green);font-size:18px}
+    .brand-fallback small{display:block;color:#496052;font-size:8px;letter-spacing:.02em;font-weight:700}
+    .topnav{display:flex;align-items:center;gap:4px}
+    .topnav a{padding:10px 12px;color:#c9d5cb;text-decoration:none;border-radius:10px;font-size:13px;font-weight:700}
+    .topnav a:hover{background:rgba(255,255,255,.05);color:#fff}
+    .top-actions{display:flex;align-items:center;gap:8px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;color:var(--ink);background:rgba(255,255,255,.035);font-size:13px;font-weight:780;transition:.18s ease;text-decoration:none}
+    .btn:hover{transform:translateY(-1px);border-color:rgba(139,207,66,.45);background:rgba(139,207,66,.08)}
+    .btn-primary{border-color:transparent;color:#061006;background:linear-gradient(135deg,var(--green),#a7eb62);box-shadow:0 10px 25px rgba(139,207,66,.16)}
+    .btn-primary:hover{background:linear-gradient(135deg,#9cdf53,#b9f078)}
+    .btn-danger{color:#ffd8d4;border-color:rgba(255,124,114,.25)}
+    .icon-btn{width:42px;padding:0}
+    .mobile-menu{display:none}
+
+    .hero{position:relative;overflow:hidden;padding:82px 0 52px;border-bottom:1px solid var(--line)}
+    .hero::before{content:"";position:absolute;right:-120px;top:-190px;width:640px;height:640px;border:1px solid rgba(139,207,66,.14);border-radius:50%;box-shadow:0 0 100px rgba(139,207,66,.06) inset;pointer-events:none}
+    .hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(330px,.72fr);gap:38px;align-items:end}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;color:var(--green-3);font-size:12px;font-weight:850;letter-spacing:.16em;text-transform:uppercase}
+    .eyebrow::before{content:"";width:28px;height:2px;background:var(--green)}
+    h1{max-width:900px;margin-bottom:24px;font-size:clamp(48px,6.5vw,92px);line-height:.92;letter-spacing:-.058em;font-weight:880}
+    h1 span{display:block;color:var(--green)}
+    .hero-copy{max-width:790px;margin-bottom:0;color:#bdc9bf;font-size:18px;line-height:1.75}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid var(--line);border-radius:999px;color:#d7e2d9;background:rgba(255,255,255,.035);font-size:12px;font-weight:740}
+    .pill i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(139,207,66,.6)}
+    .hero-panel{padding:24px;border:1px solid rgba(139,207,66,.2);border-radius:var(--radius);background:linear-gradient(145deg,rgba(22,33,25,.95),rgba(10,15,12,.96));box-shadow:var(--shadow)}
+    .hero-panel-head{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .hero-panel-head span{display:block;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .hero-panel-head strong{display:block;margin-top:5px;font-size:22px;letter-spacing:-.025em}
+    .progress-ring{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--green) calc(var(--progress,0)*1%),rgba(255,255,255,.08) 0);position:relative}
+    .progress-ring::before{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--surface)}
+    .progress-ring b{position:relative;font-size:13px}
+    .progress-track{height:8px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.08)}
+    .progress-fill{width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--green-2),var(--green));transition:width .3s ease}
+    .progress-legend{display:flex;justify-content:space-between;gap:10px;margin-top:9px;color:var(--muted);font-size:11px}
+    .panel-note{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--line);color:#aebbb0;font-size:12px}
+
+    .section{padding:68px 0}
+    .section + .section{border-top:1px solid var(--line)}
+    .section-heading{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:28px}
+    .section-heading .label{display:block;margin-bottom:9px;color:var(--green);font-size:11px;font-weight:850;letter-spacing:.15em;text-transform:uppercase}
+    .section-heading h2{margin-bottom:0;font-size:clamp(30px,4vw,50px);line-height:1.04;letter-spacing:-.045em}
+    .section-heading p{max-width:620px;margin-bottom:2px;color:var(--muted);text-align:right}
+
+    .metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:20px}
+    .metric{position:relative;overflow:hidden;min-height:132px;padding:20px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(17,24,19,.95),rgba(10,14,11,.95))}
+    .metric::after{content:"";position:absolute;right:-32px;bottom:-42px;width:100px;height:100px;border:1px solid rgba(139,207,66,.1);border-radius:50%}
+    .metric span{display:block;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+    .metric strong{display:block;margin-top:9px;font-size:37px;line-height:1;letter-spacing:-.04em}
+    .metric small{display:block;margin-top:10px;color:#aebbb0}
+    .strategy-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+    .panel{padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(13,18,15,.82);box-shadow:0 16px 50px rgba(0,0,0,.18)}
+    .panel h3{margin-bottom:12px;font-size:20px;letter-spacing:-.02em}
+    .panel p{color:#b5c2b7}
+    .check-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+    .check-list li{display:grid;grid-template-columns:24px 1fr;gap:10px;color:#c4d0c6}
+    .check-list li::before{content:"✓";display:grid;place-items:center;width:21px;height:21px;border-radius:50%;color:#071006;background:var(--green);font-size:12px;font-weight:900}
+    .limit-note{padding:16px 18px;border:1px solid rgba(255,196,91,.2);border-radius:14px;background:rgba(255,196,91,.055);color:#f0dba8;font-size:13px}
+
+    .workspace{padding-top:52px}
+    .controls{position:sticky;top:92px;z-index:50;margin-bottom:28px;padding:18px;border:1px solid var(--line);border-radius:20px;background:rgba(8,12,9,.94);box-shadow:0 18px 50px rgba(0,0,0,.27);backdrop-filter:blur(18px)}
+    .filters{display:grid;grid-template-columns:1.55fr repeat(4,minmax(140px,.65fr));gap:10px}
+    .field{display:grid;gap:7px}
+    .field label{color:#9ead9f;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+    .control{width:100%;min-height:45px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;color:var(--ink);background:#0e1510}
+    .control::placeholder{color:#728076}
+    select.control{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#8fa194 50%),linear-gradient(135deg,#8fa194 50%,transparent 50%);background-position:calc(100% - 17px) 19px,calc(100% - 12px) 19px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+    .controls-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+    .result-count{color:#b7c4b9;font-size:13px}
+    .control-actions,.view-switch{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .view-switch{padding:4px;border:1px solid var(--line);border-radius:13px;background:#0b100d}
+    .view-switch button{min-height:34px;padding:7px 11px;border:0;border-radius:9px;color:#9dac9f;background:transparent;font-size:12px;font-weight:800}
+    .view-switch button[aria-pressed="true"]{color:#071006;background:var(--green)}
+
+    .status-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:25px}
+    .status-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--line);border-radius:15px;color:var(--ink);background:var(--surface);text-align:left}
+    .status-card:hover{border-color:rgba(139,207,66,.35)}
+    .status-card span{font-size:12px;font-weight:750}
+    .status-card b{font-size:22px}
+    .status-card[data-state="Planeado"] b{color:var(--blue)}
+    .status-card[data-state="En revisión"] b{color:var(--amber)}
+    .status-card[data-state="Aprobado"] b{color:var(--purple)}
+    .status-card[data-state="Publicado"] b{color:var(--green)}
+
+    .calendar-wrap{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:rgba(11,16,12,.9);box-shadow:var(--shadow)}
+    .calendar-header{display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid var(--line);background:#0f1611}
+    .calendar-header div{padding:13px 10px;color:#9ead9f;font-size:10px;font-weight:850;letter-spacing:.12em;text-align:center;text-transform:uppercase}
+    .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+    .cal-day{position:relative;min-height:145px;padding:13px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.008)}
+    .cal-day:nth-child(7n){border-right:0}
+    .cal-day:nth-last-child(-n+7){border-bottom:0}
+    .cal-day.is-empty{background:rgba(255,255,255,.018)}
+    .cal-day.is-post{background:linear-gradient(145deg,rgba(139,207,66,.07),rgba(255,255,255,.008))}
+    .cal-day.is-filtered{opacity:.28}
+    .cal-number{display:flex;align-items:center;justify-content:space-between;color:#d9e2db;font-size:13px;font-weight:800}
+    .cal-number i{width:7px;height:7px;border-radius:50%;background:var(--green)}
+    .cal-post{display:block;width:100%;margin-top:15px;padding:0;border:0;color:inherit;background:transparent;text-align:left}
+    .cal-post strong{display:block;margin-bottom:6px;font-size:13px;line-height:1.32}
+    .cal-post span{display:block;color:var(--muted);font-size:10px;line-height:1.35}
+    .cal-status{display:inline-flex!important;width:auto!important;margin-top:10px;padding:4px 7px;border-radius:999px;background:rgba(121,186,255,.09);color:#a9cff5!important;font-size:9px!important;font-weight:800;text-transform:uppercase}
+
+    .posts{display:grid;gap:18px}
+    .post-card{scroll-margin-top:210px;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,rgba(17,24,19,.96),rgba(9,13,10,.98));box-shadow:0 22px 60px rgba(0,0,0,.22)}
+    .post-card[hidden]{display:none!important}
+    .post-top{display:grid;grid-template-columns:150px 1fr auto;gap:22px;align-items:start;padding:24px;border-bottom:1px solid var(--line)}
+    .date-block{padding:14px;border:1px solid rgba(139,207,66,.18);border-radius:15px;background:rgba(139,207,66,.055)}
+    .date-block span{display:block;color:var(--green-3);font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+    .date-block strong{display:block;margin:3px 0 2px;font-size:38px;line-height:1;letter-spacing:-.04em}
+    .date-block small{color:#aebbb0;font-size:11px}
+    .post-heading .tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+    .tag{display:inline-flex;align-items:center;padding:5px 8px;border:1px solid var(--line);border-radius:999px;color:#afbeb1;background:rgba(255,255,255,.025);font-size:9px;font-weight:820;letter-spacing:.08em;text-transform:uppercase}
+    .tag.category{color:#0a1308;border-color:transparent;background:var(--green)}
+    .post-heading h3{margin-bottom:9px;font-size:25px;line-height:1.15;letter-spacing:-.035em}
+    .post-heading p{margin-bottom:0;color:#b8c5ba;font-size:14px}
+    .state-box{min-width:170px}
+    .state-box label{display:block;margin-bottom:7px;color:#8fa093;font-size:9px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
+    .status-select{width:100%;min-height:42px;padding:9px 31px 9px 11px;border:1px solid var(--line);border-radius:11px;color:#fff;background:#0b110d;appearance:none;background-image:linear-gradient(45deg,transparent 50%,#9bad9e 50%),linear-gradient(135deg,#9bad9e 50%,transparent 50%);background-position:calc(100% - 15px) 17px,calc(100% - 10px) 17px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;font-size:12px;font-weight:800}
+    .post-core{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(310px,.75fr);gap:20px;padding:24px}
+    .caption-box,.hook-box{padding:20px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.025)}
+    .mini-label{display:block;margin-bottom:10px;color:var(--green);font-size:9px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+    .caption-text{margin-bottom:0;color:#e5ece6;white-space:pre-line;font-size:14px;line-height:1.72}
+    .hook-box{display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(155deg,rgba(139,207,66,.1),rgba(255,255,255,.018))}
+    .hook-box blockquote{margin:0 0 20px;font-size:22px;line-height:1.25;letter-spacing:-.025em;font-weight:760}
+    .url-link{display:block;overflow-wrap:anywhere;color:var(--green-3);font-size:11px;text-decoration:none}
+    .url-link:hover{text-decoration:underline}
+    .post-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:0 24px 24px}
+    .post-actions .btn{min-height:38px;padding:8px 11px;font-size:11px}
+    details.post-details{border-top:1px solid var(--line)}
+    details.post-details > summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;color:#d8e3da;cursor:pointer;font-size:12px;font-weight:830;letter-spacing:.04em;list-style:none}
+    details.post-details > summary::-webkit-details-marker{display:none}
+    details.post-details > summary::after{content:"+";display:grid;place-items:center;width:27px;height:27px;border:1px solid var(--line);border-radius:50%;color:var(--green);font-size:18px}
+    details.post-details[open] > summary::after{content:"−"}
+    .details-body{padding:0 24px 25px}
+    .detail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:12px}
+    .detail-item{min-height:112px;padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
+    .detail-item strong{display:block;margin-bottom:8px;color:#91a194;font-size:9px;letter-spacing:.12em;text-transform:uppercase}
+    .detail-item p,.detail-item ul{margin:0;color:#d1dbd3;font-size:12px;line-height:1.58}
+    .detail-item ul{padding-left:17px}
+    .wide{grid-column:1/-1}
+    .two{grid-column:span 2}
+    .creative-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:12px;margin:12px 0}
+    .creative-preview{position:relative;min-height:330px;overflow:hidden;padding:25px;border:1px solid rgba(139,207,66,.2);border-radius:17px;background:
+      radial-gradient(circle at 78% 18%,rgba(139,207,66,.25),transparent 28%),
+      linear-gradient(150deg,#07100a 0%,#101a12 55%,#07100a 100%)}
+    .creative-preview::before{content:"";position:absolute;right:-50px;bottom:-55px;width:190px;height:190px;border:1px solid rgba(139,207,66,.18);border-radius:50%}
+    .creative-brand{position:relative;display:flex;align-items:center;gap:9px;color:#dce7dd;font-size:10px;font-weight:850;letter-spacing:.12em}
+    .creative-brand i{width:8px;height:8px;border-radius:50%;background:var(--green)}
+    .creative-copy{position:absolute;left:25px;right:25px;bottom:25px}
+    .creative-copy span{display:block;margin-bottom:10px;color:var(--green);font-size:9px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+    .creative-copy strong{display:block;max-width:430px;white-space:pre-line;font-size:28px;line-height:1.02;letter-spacing:-.04em}
+    .creative-copy b{display:inline-flex;margin-top:18px;padding:8px 11px;border-radius:999px;color:#071006;background:var(--green);font-size:9px;letter-spacing:.09em}
+    .prompt-box{min-height:330px;padding:20px;border:1px solid var(--line);border-radius:17px;background:#0b100d}
+    .prompt-box p{margin:0;color:#c8d3ca;font-size:12px;line-height:1.7}
+    .source-list{display:grid;gap:7px;margin:0;padding:0;list-style:none}
+    .source-list a{display:flex;align-items:flex-start;gap:8px;color:#cce9bd;text-decoration:none}
+    .source-list a::before{content:"↗";color:var(--green)}
+    .source-list a:hover{text-decoration:underline}
+    .notes{width:100%;min-height:105px;resize:vertical;padding:13px 14px;border:1px solid var(--line);border-radius:12px;color:var(--ink);background:#0b110d;line-height:1.55}
+
+    .sources-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .source-card{padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+    .source-card h3{font-size:18px}
+    .source-card p,.source-card li{color:#b4c1b6;font-size:13px}
+    .source-card ul{padding-left:18px}
+    .source-card a{color:var(--green-3);overflow-wrap:anywhere}
+    .footer{padding:36px 0;border-top:1px solid var(--line);background:#030504}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;color:#869589;font-size:12px}
+    .footer-brand{display:flex;align-items:center;gap:12px}
+    .footer-logo-box{position:relative;display:flex;align-items:center;width:170px;min-height:48px;padding:6px 9px;border-radius:9px;background:#fff;overflow:hidden}
+    .footer-logo-box img{position:relative;z-index:2;display:block;width:100%;height:auto}
+    .footer-logo-fallback{position:absolute;z-index:1;inset:6px 9px;display:flex;align-items:center;gap:8px;color:#07100a;font-size:13px;font-weight:900;letter-spacing:.06em}
+    .footer-logo-fallback i{display:grid;place-items:center;width:29px;height:29px;border-radius:50%;color:#07100a;background:var(--green);font-style:normal}
+    .footer-logo-fallback small{display:block;color:#496052;font-size:7px;font-weight:750;letter-spacing:.02em}
+    .toast{position:fixed;right:22px;bottom:22px;z-index:999;max-width:360px;padding:13px 16px;border:1px solid rgba(139,207,66,.35);border-radius:12px;color:#e9f7e4;background:#0d1710;box-shadow:var(--shadow);opacity:0;transform:translateY(12px);pointer-events:none;transition:.2s}
+    .toast.show{opacity:1;transform:translateY(0)}
+    .empty-state{padding:44px;border:1px dashed rgba(139,207,66,.3);border-radius:20px;color:#aebcaf;text-align:center}
+    .hidden-input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+    body[data-view="calendar"] #postsSection{display:none}
+    body[data-view="cards"] #calendarSection{display:none}
+
+    @media (max-width:1120px){
+      .topnav{display:none}.mobile-menu{display:inline-flex}.top-actions .hide-tablet{display:none}
+      .hero-grid{grid-template-columns:1fr}.hero-panel{max-width:610px}
+      .metrics{grid-template-columns:repeat(3,1fr)}
+      .filters{grid-template-columns:1.4fr repeat(2,1fr)}
+      .post-top{grid-template-columns:120px 1fr}.state-box{grid-column:2}.post-core{grid-template-columns:1fr}
+      .detail-grid{grid-template-columns:repeat(2,1fr)}
+      .creative-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:760px){
+      .shell{width:min(100% - 24px,var(--max))}
+      .topbar-inner{min-height:66px}.brand{min-width:0}.brand-logo-box{width:170px;min-height:42px}.brand-logo-box img{width:148px}
+      .top-actions .btn:not(.mobile-menu){display:none}
+      .hero{padding:58px 0 42px}h1{font-size:50px}.hero-copy{font-size:16px}.hero-meta{gap:7px}
+      .section{padding:50px 0}.section-heading{align-items:flex-start;flex-direction:column}.section-heading p{text-align:left}
+      .metrics{grid-template-columns:1fr 1fr}.metric:last-child{grid-column:1/-1}
+      .strategy-grid,.sources-grid{grid-template-columns:1fr}
+      .controls{position:relative;top:auto}.filters{grid-template-columns:1fr}.controls-row{align-items:stretch;flex-direction:column}.view-switch{width:100%}.view-switch button{flex:1}
+      .status-strip{grid-template-columns:1fr 1fr}
+      .calendar-wrap{overflow-x:auto}.calendar-header,.calendar-grid{min-width:760px}
+      .post-top{grid-template-columns:1fr;padding:19px}.date-block{display:flex;align-items:baseline;gap:8px}.date-block span{display:inline}.date-block strong{font-size:25px}.date-block small{margin-left:auto}.state-box{grid-column:auto;min-width:0}
+      .post-core{padding:19px}.caption-box,.hook-box{padding:17px}.hook-box blockquote{font-size:19px}.post-actions{padding:0 19px 19px}.post-actions .btn{flex:1 1 46%}
+      details.post-details > summary{padding:16px 19px}.details-body{padding:0 19px 20px}.detail-grid{grid-template-columns:1fr}.two,.wide{grid-column:auto}.creative-preview{min-height:290px}
+      .footer-inner{align-items:flex-start;flex-direction:column}.footer-logo-box{width:145px}
+    }
+    @media (max-width:460px){
+      h1{font-size:42px}.metrics,.status-strip{grid-template-columns:1fr}.metric:last-child{grid-column:auto}.post-actions .btn{flex-basis:100%}.creative-copy strong{font-size:24px}
+    }
+    @media print{
+      @page{margin:13mm}
+      body{color:#111;background:#fff;font-size:10pt}
+      .topbar,.hero-actions,.controls,.status-strip,.post-actions,.toast,.skip-link,.view-switch{display:none!important}
+      .hero,.section{padding:18px 0;border-color:#ddd}.hero::before{display:none}.hero-grid{display:block}.hero-panel{margin-top:18px;color:#111;background:#f7f9f7;border-color:#ccc;box-shadow:none}
+      h1{color:#111;font-size:42pt}h1 span{color:#2f751f}.hero-copy,.section-heading p,.panel p,.detail-item p,.detail-item ul,.caption-text{color:#333}
+      .metrics{grid-template-columns:repeat(5,1fr)}.metric,.panel,.calendar-wrap,.post-card,.detail-item,.caption-box,.hook-box,.source-card{color:#111;background:#fff;border-color:#ccc;box-shadow:none;break-inside:avoid}
+      .calendar-wrap{overflow:visible}.calendar-header,.calendar-grid{min-width:0}.cal-day{min-height:105px;border-color:#ddd}.cal-post span,.cal-number,.date-block small{color:#333}
+      .post-card{margin-bottom:14px}.post-top{grid-template-columns:90px 1fr}.state-box{display:none}.post-core{grid-template-columns:1fr 1fr}.post-details{display:block}.post-details > summary{display:none!important}.post-details:not([open]) .details-body{display:block!important}
+      .detail-grid{grid-template-columns:repeat(3,1fr)}.creative-preview{color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}.notes{border-color:#ccc;color:#111;background:#fff}
+      .footer{color:#333;background:#fff;border-color:#ccc}.footer-logo-box img{filter:none}
+      a{text-decoration:none;color:inherit}
+    }
+  </style>
+</head>
+<body data-view="both">
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#inicio" aria-label="Plaga Zero, volver al inicio">
+        <span class="brand-logo-box">
+          <img src="https://plagazero.com/wp-content/uploads/2024/04/2.png" alt="Plaga Zero" width="362" height="112" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <span class="brand-fallback"><span class="fallback-mark">✦</span><span>PLAGA ZERO<small>CONTROL DE PLAGAS · CDMX</small></span></span>
+        </span>
+      </a>
+      <nav class="topnav" aria-label="Secciones del dashboard">
+        <a href="#resumen">Resumen</a><a href="#calendarSection">Calendario</a><a href="#postsSection">Publicaciones</a><a href="#fuentes">Fuentes</a>
+      </nav>
+      <div class="top-actions">
+        <button class="btn hide-tablet" id="exportTop" type="button">Exportar JSON</button>
+        <button class="btn hide-tablet" id="printTop" type="button">Imprimir</button>
+        <button class="btn mobile-menu" id="mobileJump" type="button" aria-label="Ir a controles">Controles</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="inicio">
+      <div class="shell hero-grid">
+        <div>
+          <span class="eyebrow">Plan editorial verificable · CDMX + Estado de México</span>
+          <h1>Calendario GMB <span>Septiembre 2026</span></h1>
+          <p class="hero-copy">Nueve publicaciones listas para copiar, revisar y publicar. El calendario prioriza intención comercial, prevención estacional, servicios reales y páginas locales activas, sin repetir como ejes principales las plagas más trabajadas en julio y agosto.</p>
+          <div class="hero-meta" aria-label="Datos de campaña">
+            <span class="pill"><i></i> Martes y jueves</span>
+            <span class="pill"><i></i> 9 publicaciones</span>
+            <span class="pill"><i></i> 1200 × 1200 px</span>
+            <span class="pill"><i></i> Consulta: 1 sep 2026</span>
+          </div>
+        </div>
+        <aside class="hero-panel" aria-labelledby="progressTitle">
+          <div class="hero-panel-head">
+            <div><span id="progressTitle">Avance editorial ponderado</span><strong id="progressLabel">0 %</strong></div>
+            <div class="progress-ring" id="progressRing" style="--progress:0"><b id="progressRingText">0%</b></div>
+          </div>
+          <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-legend"><span>Planeado</span><span>En revisión</span><span>Aprobado</span><span>Publicado</span></div>
+          <p class="panel-note">El progreso asigna 0, 1, 2 o 3 puntos según el estado de cada publicación. Estados y notas se guardan automáticamente en este navegador.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="resumen">
+      <div class="shell">
+        <div class="section-heading">
+          <div><span class="label">Resumen ejecutivo</span><h2>Un mes diseñado para convertir, no para decorar</h2></div>
+          <p>La selección cubre cinco servicios específicos, dos piezas comerciales generales y dos localidades con landing propia.</p>
+        </div>
+        <div class="metrics" aria-label="Métricas del calendario">
+          <article class="metric"><span>Publicaciones</span><strong>9</strong><small>Exactamente las fechas solicitadas</small></article>
+          <article class="metric"><span>Servicios específicos</span><strong>5</strong><small>Hormigas, garrapatas, pulgas, grillos y arañas</small></article>
+          <article class="metric"><span>Piezas locales</span><strong>2</strong><small>Naucalpan y Tlalpan</small></article>
+          <article class="metric"><span>Piezas comerciales</span><strong>2</strong><small>Negocios y fumigación general</small></article>
+          <article class="metric"><span>Precios inventados</span><strong>0</strong><small>También se excluyen garantías no uniformes</small></article>
+        </div>
+        <div class="strategy-grid">
+          <article class="panel">
+            <h3>Criterio de selección</h3>
+            <ul class="check-list">
+              <li>La perspectiva oficial de Conagua para 2026 previó un nuevo incremento de lluvias entre septiembre y octubre, por eso el mes trabaja humedad, accesos y refugios con lenguaje prudente.</li>
+              <li>Se priorizaron servicios reales con URL específica y etapas de decisión distintas: descubrimiento, consideración y contratación.</li>
+              <li>Los ejes principales recuperados de julio y agosto —cucarachas, roedores, chinches, termitas y alacranes— no se repiten como protagonistas.</li>
+              <li>Los captions no prometen atención inmediata, resultados absolutos, precios, descuentos, certificaciones ni duración de garantías.</li>
+            </ul>
+          </article>
+          <aside class="panel">
+            <h3>Limitación documentada</h3>
+            <p>Se recuperó el registro funcional y visual del dashboard aprobado de julio, además de decisiones y temas confirmados de agosto. El archivo HTML binario anterior no apareció en la biblioteca ni en Drive, por lo que esta edición conserva la estructura documentada sin afirmar una réplica píxel por píxel.</p>
+            <div class="limit-note">La revisión anti-duplicidad se realizó contra los temas disponibles en el historial recuperable. Los textos íntegros de todas las publicaciones de junio y agosto no estaban accesibles.</div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section workspace" id="workspace">
+      <div class="shell">
+        <div class="section-heading">
+          <div><span class="label">Herramienta de trabajo</span><h2>Busca, filtra, revisa y respalda</h2></div>
+          <p>Los cambios de estado y las notas quedan en localStorage. El respaldo JSON permite trasladarlos o recuperarlos.</p>
+        </div>
+
+        <div class="controls" id="controls" aria-label="Controles del dashboard">
+          <div class="filters">
+            <div class="field"><label for="searchInput">Buscador</label><input class="control" id="searchInput" type="search" placeholder="Tema, caption, palabra clave, zona o nota…" autocomplete="off"></div>
+            <div class="field"><label for="dateFilter">Fecha</label><select class="control" id="dateFilter"><option value="all">Todas las fechas</option></select></div>
+            <div class="field"><label for="serviceFilter">Servicio</label><select class="control" id="serviceFilter"><option value="all">Todos los servicios</option></select></div>
+            <div class="field"><label for="categoryFilter">Categoría</label><select class="control" id="categoryFilter"><option value="all">Todas las categorías</option></select></div>
+            <div class="field"><label for="statusFilter">Estado</label><select class="control" id="statusFilter"><option value="all">Todos los estados</option></select></div>
+          </div>
+          <div class="controls-row">
+            <span class="result-count" id="resultCount" aria-live="polite">9 de 9 publicaciones visibles</span>
+            <div class="view-switch" role="group" aria-label="Cambiar vista">
+              <button type="button" data-view="calendar" aria-pressed="false">Calendario</button>
+              <button type="button" data-view="cards" aria-pressed="false">Tarjetas</button>
+              <button type="button" data-view="both" aria-pressed="true">Ambas</button>
+            </div>
+            <div class="control-actions">
+              <button class="btn" id="expandAll" type="button">Expandir</button>
+              <button class="btn" id="collapseAll" type="button">Contraer</button>
+              <button class="btn" id="clearFilters" type="button">Limpiar filtros</button>
+              <button class="btn" id="exportJson" type="button">Exportar JSON</button>
+              <button class="btn" id="importJson" type="button">Importar JSON</button>
+              <input class="hidden-input" id="importFile" type="file" accept="application/json,.json">
+              <button class="btn" id="printDashboard" type="button">Imprimir</button>
+              <button class="btn btn-danger" id="resetData" type="button">Reiniciar datos</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-strip" aria-label="Contadores por estado">
+          <button class="status-card" type="button" data-state="Planeado"><span>Planeado</span><b id="countPlaneado">9</b></button>
+          <button class="status-card" type="button" data-state="En revisión"><span>En revisión</span><b id="countRevision">0</b></button>
+          <button class="status-card" type="button" data-state="Aprobado"><span>Aprobado</span><b id="countAprobado">0</b></button>
+          <button class="status-card" type="button" data-state="Publicado"><span>Publicado</span><b id="countPublicado">0</b></button>
+        </div>
+
+        <section id="calendarSection" aria-labelledby="calendarTitle">
+          <div class="section-heading">
+            <div><span class="label">Vista calendario</span><h2 id="calendarTitle">Septiembre 2026</h2></div>
+            <p>Selecciona una publicación para abrir su ficha y llevarla al centro de la pantalla.</p>
+          </div>
+          <div class="calendar-wrap">
+            <div class="calendar-header" aria-hidden="true"><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div></div>
+            <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Calendario de septiembre de 2026"></div>
+          </div>
+        </section>
+
+        <section class="section" id="postsSection" aria-labelledby="postsTitle">
+          <div class="section-heading">
+            <div><span class="label">Vista por tarjetas</span><h2 id="postsTitle">Nueve publicaciones listas</h2></div>
+            <p>Cada ficha contiene estrategia, caption, CTA, URL, hashtags, dirección visual, prompt, alt text, evidencia, estado y notas.</p>
+          </div>
+          <div class="posts" id="postList"></div>
+          <div class="empty-state" id="emptyState" hidden>No hay publicaciones que coincidan con los filtros actuales.</div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section" id="fuentes">
+      <div class="shell">
+        <div class="section-heading">
+          <div><span class="label">Fuentes y control de calidad</span><h2>Qué se verificó y qué se excluyó</h2></div>
+          <p>Consulta realizada el 1 de septiembre de 2026. No se usaron volúmenes de búsqueda ni estimaciones no proporcionadas por una herramienta accesible.</p>
+        </div>
+        <div class="sources-grid">
+          <article class="source-card">
+            <h3>Fuentes oficiales de Plaga Zero</h3>
+            <p>Se revisaron la home, el catálogo general, las páginas de hormigas, garrapatas, pulgas, grillos y arañas, y las landings locales de Naucalpan y Tlalpan.</p>
+            <ul>
+              <li><a href="https://plagazero.com/" target="_blank" rel="noreferrer">plagazero.com</a></li>
+              <li><a href="https://plagazero.com/fumigaciones/" target="_blank" rel="noreferrer">Catálogo de fumigaciones</a></li>
+              <li><a href="https://plagazero.com/fumigacion/de-hormiga/" target="_blank" rel="noreferrer">Fumigación de hormigas</a></li>
+              <li><a href="https://plagazero.com/control-de-plagas/de-garrapatas/" target="_blank" rel="noreferrer">Control de garrapatas</a></li>
+              <li><a href="https://plagazero.com/fumigacion/de-pulgas/" target="_blank" rel="noreferrer">Fumigación de pulgas</a></li>
+              <li><a href="https://plagazero.com/control-de-plagas/de-grillos/" target="_blank" rel="noreferrer">Control de grillos</a></li>
+              <li><a href="https://plagazero.com/fumigacion/de-aranas/" target="_blank" rel="noreferrer">Fumigación de arañas</a></li>
+              <li><a href="https://plagazero.com/fumigaciones/naucalpan/" target="_blank" rel="noreferrer">Fumigaciones en Naucalpan</a></li>
+              <li><a href="https://plagazero.com/fumigaciones/tlalpan/" target="_blank" rel="noreferrer">Fumigaciones en Tlalpan</a></li>
+            </ul>
+          </article>
+          <article class="source-card">
+            <h3>Fuentes estacionales y técnicas</h3>
+            <ul>
+              <li><a href="https://www.gob.mx/conagua/prensa/el-gobierno-de-mexico-preve-inicio-favorable-de-lluvias-con-variaciones-asociadas-al-establecimiento-de-el-nino?hl=es-MX" target="_blank" rel="noreferrer">Conagua / SMN · Perspectiva de lluvias 2026</a></li>
+              <li><a href="https://www.epa.gov/pesticides/smart-pest-control-protect-your-health" target="_blank" rel="noreferrer">EPA · Manejo inteligente de plagas</a></li>
+              <li><a href="https://www.epa.gov/indoor-air-quality-iaq/biological-contaminants-and-indoor-air-quality" target="_blank" rel="noreferrer">EPA · Manejo integrado y prevención</a></li>
+              <li><a href="https://www.cdc.gov/ticks/es/prevention/como-prevenir-las-garrapatas-en-las-mascotas.html" target="_blank" rel="noreferrer">CDC · Garrapatas y mascotas</a></li>
+              <li><a href="https://www.cdc.gov/fleas/prevention/index.html" target="_blank" rel="noreferrer">CDC · Prevención de pulgas</a></li>
+              <li><a href="https://es.extension.umn.edu/garden-and-home/home-maintenance/household-insects/ants" target="_blank" rel="noreferrer">UMN Extension · Hormigas domésticas</a></li>
+            </ul>
+          </article>
+          <article class="source-card">
+            <h3>Datos comerciales utilizados</h3>
+            <ul>
+              <li>Marca: Plaga Zero.</li>
+              <li>Zona: Ciudad de México y localidades enlazadas del Estado de México.</li>
+              <li>Teléfono y WhatsApp mostrado en la web: 55 5011 8957.</li>
+              <li>Servicios y URLs: únicamente los que aparecen en la navegación o en páginas activas verificadas.</li>
+            </ul>
+          </article>
+          <article class="source-card">
+            <h3>Datos excluidos deliberadamente</h3>
+            <ul>
+              <li>Precios, descuentos y promociones.</li>
+              <li>Duración de garantías o resultados absolutos.</li>
+              <li>Tiempos exactos de llegada, atención 24/7 o servicio el mismo día.</li>
+              <li>Certificaciones, autorizaciones o seguridad para personas y mascotas.</li>
+              <li>Volúmenes de búsqueda, posiciones, demanda o conversiones no documentadas.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo-box">
+          <img src="https://plagazero.com/wp-content/uploads/2024/04/2.png" alt="Plaga Zero" width="362" height="112" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <span class="footer-logo-fallback"><i>✦</i><span>PLAGA ZERO<small>CONTROL DE PLAGAS</small></span></span>
+        </span>
+        <span><strong>Calendario GMB · Septiembre 2026</strong><br>9 publicaciones · martes y jueves</span>
+      </div>
+      <span>Dashboard independiente · estados y notas guardados localmente</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const posts = [{"id":"pz-2026-09-01","date":"2026-09-01","day":"Martes","dayNumber":1,"theme":"Rutas de hormigas después de la lluvia: atender el origen","category":"Prevención","service":"Fumigación de hormigas","pest":"Hormigas","audience":"Familias, administradores de departamentos y pequeños negocios que detectan rutas de hormigas en cocinas, patios o baños.","zone":"Ciudad de México; intención local de servicio a domicilio.","journey":"Consideración","objective":"Convertir una señal cotidiana en una solicitud de evaluación y cotización del servicio específico.","reason":"Abre el mes con una plaga distinta a los ejes ya trabajados en julio y agosto. El repunte de lluvias previsto para septiembre y octubre vuelve pertinente hablar de humedad, accesos y rutas visibles sin afirmar que toda aparición se deba al clima.","primaryKeyword":"fumigación de hormigas CDMX","secondaryTerms":["control de hormigas en casa","hormigas en cocina","fumigadores de hormigas cerca","eliminar rutas de hormigas"],"hook":"¿Hormigas en fila? Limpiar el rastro no siempre resuelve el origen.","caption":"¿Las hormigas están formando rutas entre el patio y la cocina? En septiembre, la humedad y el movimiento alrededor de grietas, puertas y tuberías pueden hacer más visibles sus puntos de entrada.\n\nLimpiar el rastro no siempre resuelve el origen: conviene revisar alimento, agua, sellos y el lugar donde aparece la actividad. Plaga Zero ofrece fumigación de hormigas en CDMX según las condiciones del inmueble.\n\nConsulta el servicio y solicita una cotización indicando tu alcaldía, tipo de espacio y zonas afectadas.","cta":"Revisa el servicio y solicita una cotización para tu inmueble.","url":"https://plagazero.com/fumigacion/de-hormiga/","hashtags":["#FumigaciónDeHormigas","#ControlDePlagasCDMX","#PrevenciónDePlagas","#PlagaZero"],"imageDirection":"Cocina doméstica contemporánea en CDMX después de una tarde lluviosa; una ruta discreta de hormigas cerca del marco de una puerta y un técnico inspeccionando el punto de entrada. La plaga debe verse pequeña y secundaria, nunca en macro ni de forma desagradable.","imageText":"¿HORMIGAS EN FILA?\nREVISA EL ORIGEN","imagePrompt":"Crear una pieza comercial cuadrada de 1200 × 1200 px para Google Business Profile de Plaga Zero. Escena fotográfica hiperrealista y limpia en una cocina doméstica contemporánea de Ciudad de México después de la lluvia. Mostrar a un técnico profesional con uniforme negro y acentos verdes inspeccionando discretamente la unión entre una puerta, el zoclo y una tubería; incluir una pequeña ruta de hormigas visible pero no grotesca. Base visual negra y carbón, acentos verdes reales de Plaga Zero, iluminación premium y sensación de confianza. Integrar el logo oficial proporcionado en la esquina superior izquierda, sin redibujarlo, con espacio de seguridad y proporciones intactas. Texto principal grande, móvil y de alto contraste: “¿HORMIGAS EN FILA?”; texto secundario: “REVISA EL ORIGEN”. CTA breve en una cápsula verde: “SOLICITA COTIZACIÓN”. Composición limpia, márgenes seguros, máximo tres bloques de texto, sin teléfono, sin precio, sin garantías, sin iconos caricaturescos y sin saturación.","altText":"Técnico de Plaga Zero inspeccionando una ruta discreta de hormigas junto a una puerta de cocina en un hogar de CDMX.","evidence":"La página oficial confirma el servicio específico de fumigación de hormigas. Conagua previó un nuevo incremento de lluvias entre septiembre y octubre de 2026. La Extensión de la Universidad de Minnesota relaciona varias hormigas domésticas con alimento, agua, humedad y puntos de anidación ocultos.","sources":[{"label":"Plaga Zero · Fumigación de hormigas","url":"https://plagazero.com/fumigacion/de-hormiga/"},{"label":"Conagua · Perspectiva de lluvias 2026","url":"https://www.gob.mx/conagua/prensa/el-gobierno-de-mexico-preve-inicio-favorable-de-lluvias-con-variaciones-asociadas-al-establecimiento-de-el-nino?hl=es-MX"},{"label":"UMN Extension · Hormigas","url":"https://es.extension.umn.edu/garden-and-home/home-maintenance/household-insects/ants"}],"urlVerified":"Verificada el 1 de septiembre de 2026","defaultNote":"Revisar que la imagen mantenga las hormigas en segundo plano y que el gancho siga legible en miniatura.","status":"Planeado"},{"id":"pz-2026-09-03","date":"2026-09-03","day":"Jueves","dayNumber":3,"theme":"Garrapatas: revisar a la mascota y también su entorno","category":"Educativa","service":"Control de garrapatas","pest":"Garrapatas","audience":"Hogares con perros o gatos que usan patios, jardines, parques o áreas verdes.","zone":"Ciudad de México; hogares con mascotas y espacios interiores o exteriores.","journey":"Descubrimiento y consideración","objective":"Educar sin sustituir la atención veterinaria y conducir a una evaluación ambiental del inmueble.","reason":"Septiembre todavía forma parte de los meses cálidos en los que las garrapatas pueden estar activas. El enfoque mascota + entorno responde a una necesidad concreta y abre una línea de servicio poco utilizada en los contenidos recuperados de julio y agosto.","primaryKeyword":"control de garrapatas en casa CDMX","secondaryTerms":["fumigación de garrapatas CDMX","garrapatas en cama de perro","garrapatas en patio","control ambiental de garrapatas"],"hook":"Encontrar una garrapata en tu mascota también amerita revisar el entorno.","caption":"¿Tu perro volvió del parque y encontraste una garrapata? Revisar a la mascota es importante, pero también conviene inspeccionar su cama, tapetes, grietas, patios y las áreas donde descansa.\n\nLas mascotas pueden transportar garrapatas al interior. El control del ambiente debe coordinarse con las indicaciones de tu veterinario para el animal. Plaga Zero cuenta con control de garrapatas en CDMX.\n\nConoce el servicio y solicita una evaluación del espacio.","cta":"Consulta el servicio de control ambiental de garrapatas.","url":"https://plagazero.com/control-de-plagas/de-garrapatas/","hashtags":["#ControlDeGarrapatas","#FumigaciónCDMX","#HogarConMascotas","#PlagaZero"],"imageDirection":"Sala o entrada de casa elegante con un perro tranquilo junto a su cama; técnico revisando zoclos y tapete. No mostrar una garrapata en primer plano. Comunicar cuidado integral de mascota y hogar.","imageText":"GARRAPATAS:\nREVISA MASCOTA Y ENTORNO","imagePrompt":"Diseñar una publicación cuadrada de 1200 × 1200 px para Google Business Profile de Plaga Zero. Fotografía publicitaria hiperrealista en una sala moderna de CDMX con un perro tranquilo junto a su cama y un técnico profesional de control de plagas revisando el zoclo y un tapete. No mostrar garrapatas en macro ni escenas desagradables; la idea debe comunicar inspección del entorno, no tratamiento veterinario. Paleta negra y carbón con acentos verdes oficiales de Plaga Zero, iluminación limpia, doméstica-premium y confiable. Integrar el logo oficial proporcionado en la esquina superior izquierda, intacto y con área de seguridad. Texto principal de alta legibilidad: “GARRAPATAS:” y debajo “REVISA MASCOTA Y ENTORNO”. CTA breve: “EVALÚA TU ESPACIO”. Añadir una microleyenda discreta: “La mascota se atiende con su veterinario”. Sin teléfono, precios, garantías, claims médicos, emojis ni saturación visual.","altText":"Técnico de Plaga Zero revisando el área de descanso de un perro para detectar posibles garrapatas en una vivienda de CDMX.","evidence":"La página oficial confirma el servicio de control de garrapatas. Los CDC señalan que las mascotas pueden transportar garrapatas al interior y recomiendan revisarlas, reducir hábitats alrededor del hogar y consultar al veterinario sobre prevención para el animal.","sources":[{"label":"Plaga Zero · Control de garrapatas","url":"https://plagazero.com/control-de-plagas/de-garrapatas/"},{"label":"CDC · Garrapatas en mascotas","url":"https://www.cdc.gov/ticks/es/prevention/como-prevenir-las-garrapatas-en-las-mascotas.html"},{"label":"CDC · Prevención de picaduras","url":"https://www.cdc.gov/ticks/es/prevention/como-prevenir-las-picaduras-de-garrapatas.html"}],"urlVerified":"Verificada el 1 de septiembre de 2026","defaultNote":"Mantener clara la separación entre control ambiental y atención veterinaria de la mascota.","status":"Planeado"},{"id":"pz-2026-09-08","date":"2026-09-08","day":"Martes","dayNumber":8,"theme":"Prevención de plagas para negocios antes de las fiestas patrias","category":"Comercial","service":"Fumigación para negocios","pest":"Control integral de plagas","audience":"Restaurantes, cafeterías, cocinas, tiendas, oficinas y pequeños establecimientos con mayor movimiento por las fiestas patrias.","zone":"Ciudad de México; intención comercial y de contratación.","journey":"Consideración y contratación","objective":"Generar cotizaciones B2B con un motivo estacional concreto y sin recurrir a promociones inventadas.","reason":"Se publica una semana antes del 15 y 16 de septiembre para dar margen real de revisión. Aprovecha un momento de mayor preparación operativa sin afirmar aumentos de ventas ni obligaciones regulatorias no verificadas.","primaryKeyword":"fumigación para negocios CDMX","secondaryTerms":["control de plagas para restaurantes","fumigación de locales CDMX","fumigación comercial","prevención de plagas en cocina"],"hook":"Más movimiento en tu negocio no debería significar más oportunidades para una plaga.","caption":"¿Tu cocina, restaurante o local tendrá más movimiento por las fiestas patrias? La prevención no empieza cuando aparece una queja.\n\nAntes de recibir más insumos o clientes, revisa almacenamiento, basura, drenajes, fugas, grietas y áreas sin movimiento. Un plan profesional debe partir del tipo de plaga y de las condiciones reales del negocio, no de una aplicación genérica.\n\nConsulta las fumigaciones de Plaga Zero en CDMX y solicita una cotización para tu establecimiento.","cta":"Cotiza un servicio de fumigación para tu negocio.","url":"https://plagazero.com/fumigaciones/","hashtags":["#FumigaciónParaNegocios","#ControlDePlagasCDMX","#RestaurantesCDMX","#PlagaZero"],"imageDirection":"Cocina comercial impecable o restaurante preparándose para fiestas patrias; técnico inspeccionando almacenamiento y uniones de piso, sin banderas excesivas ni aspecto de promoción festiva barata.","imageText":"SEMANA PATRIA:\nPROTEGE TU OPERACIÓN","imagePrompt":"Crear una pieza cuadrada 1200 × 1200 px para Google Business Profile de Plaga Zero orientada a negocios. Escena fotográfica premium en una cocina comercial o restaurante de CDMX preparándose para las fiestas patrias, con detalles mexicanos sutiles y elegantes, no decoraciones saturadas. Mostrar a un técnico profesional con uniforme negro y acentos verdes revisando estanterías, almacenamiento y la unión entre piso y muro. No mostrar plagas en primer plano. Paleta base negra, grafito y acero, con verdes oficiales de Plaga Zero. Integrar el logo oficial proporcionado en la esquina superior izquierda, sin alterar. Titular grande: “SEMANA PATRIA:” y subtítulo “PROTEGE TU OPERACIÓN”. CTA en verde: “COTIZA PARA TU NEGOCIO”. Diseño ejecutivo, B2B, legible en móvil, con márgenes seguros. Sin teléfono, precio, descuento, certificado, garantía, promesa de atención inmediata ni exceso de elementos patrios.","altText":"Técnico de Plaga Zero inspeccionando una cocina comercial en CDMX antes de las fiestas patrias.","evidence":"La página oficial confirma servicios de fumigación y la atención a espacios comerciales. Las recomendaciones de manejo integrado de plagas de la EPA priorizan retirar alimento, agua, refugios y sellar accesos antes de elegir medidas de control.","sources":[{"label":"Plaga Zero · Fumigaciones","url":"https://plagazero.com/fumigaciones/"},{"label":"EPA · Control inteligente de plagas","url":"https://www.epa.gov/pesticides/smart-pest-control-protect-your-health"},{"label":"EPA · Manejo integrado de plagas","url":"https://www.epa.gov/indoor-air-quality-iaq/biological-contaminants-and-indoor-air-quality"}],"urlVerified":"Verificada el 1 de septiembre de 2026","defaultNote":"Publicar con suficiente anticipación; evitar mencionar certificaciones o tiempos de atención no confirmados para ese día.","status":"Planeado"},{"id":"pz-2026-09-10","date":"2026-09-10","day":"Jueves","dayNumber":10,"theme":"Pulgas: el problema puede permanecer en textiles y zonas de descanso","category":"Urgencia","service":"Fumigación de pulgas","pest":"Pulgas","audience":"Hogares con mascotas y personas que detectan picaduras o actividad recurrente en recámaras, salas o tapetes.","zone":"Ciudad de México; intención de solución inmediata y cotización.","journey":"Contratación","objective":"Captar una necesidad de alta incomodidad con un mensaje preciso que diferencia el tratamiento de la mascota del control del entorno.","reason":"Las pulgas generan intención urgente, pero el contenido evita alarmismo. La evidencia de CDC sobre alfombras, ropa de cama y superficies frecuentadas por mascotas permite explicar por qué el problema ambiental puede persistir.","primaryKeyword":"fumigación de pulgas CDMX","secondaryTerms":["pulgas en casa","pulgas en sillón","control de pulgas en tapetes","fumigadores de pulgas CDMX"],"hook":"Si las picaduras siguen, atender solo a la mascota puede no resolver el entorno.","caption":"¿Siguen las picaduras aunque ya atendiste a tu mascota? Las pulgas pueden permanecer en camas, tapetes, sillones y otros sitios donde los animales descansan.\n\nAspirar y lavar textiles ayuda, pero una actividad persistente requiere revisar el entorno completo; el tratamiento de la mascota debe indicarlo el veterinario. Plaga Zero ofrece fumigación de pulgas en CDMX.\n\nConsulta el servicio y comparte qué habitaciones, textiles y mascotas están involucrados para solicitar una cotización.","cta":"Consulta la fumigación de pulgas y solicita una cotización.","url":"https://plagazero.com/fumigacion/de-pulgas/","hashtags":["#FumigaciónDePulgas","#ControlDePlagasCDMX","#HogarConMascotas","#PlagaZero"],"imageDirection":"Sala oscura y elegante con sillón, tapete y cama de mascota; técnico inspeccionando textiles con linterna. No mostrar picaduras ni pulgas ampliadas.","imageText":"PULGAS EN CASA:\nREVISA TODO EL ENTORNO","imagePrompt":"Diseñar una imagen cuadrada de 1200 × 1200 px para Google Business Profile de Plaga Zero. Escena hiperrealista y limpia en una sala moderna de CDMX con sillón, tapete y cama de mascota; un técnico profesional con uniforme negro y acentos verdes inspecciona cuidadosamente las costuras del sillón y el área del tapete con una linterna. No mostrar pulgas en macro, picaduras, piel ni escenas desagradables. Fondo carbón oscuro, acentos verdes de Plaga Zero, iluminación cinematográfica y apariencia doméstica-premium. Integrar el logo oficial proporcionado arriba a la izquierda, conservando proporciones y espacio de seguridad. Texto principal: “PULGAS EN CASA:” y debajo “REVISA TODO EL ENTORNO”. CTA: “SOLICITA COTIZACIÓN”. Microtexto discreto: “La mascota se atiende con su veterinario”. Sin teléfono, precio, garantía, promesas médicas ni saturación.","altText":"Técnico de Plaga Zero inspeccionando un sillón, tapete y cama de mascota por posible presencia de pulgas en CDMX.","evidence":"La página oficial confirma la fumigación de pulgas. Los CDC indican que las pulgas pueden vivir en alfombras, ropa de cama y otras superficies frecuentadas por mascotas, y recomiendan limpieza frecuente junto con medidas de control adecuadas.","sources":[{"label":"Plaga Zero · Fumigación de pulgas","url":"https://plagazero.com/fumigacion/de-pulgas/"},{"label":"CDC · Prevención de pulgas","url":"https://www.cdc.gov/fleas/prevention/index.html"},{"label":"EPA · Manejo integrado de plagas","url":"https://www.epa.gov/pesticides/smart-pest-control-protect-your-health"}],"urlVerified":"Verificada el 1 de septiembre de 2026","defaultNote":"No representar pulgas de forma ampliada; la imagen debe vender tranquilidad y revisión profesional.","status":"Planeado"},{"id":"pz-2026-09-15","date":"2026-09-15","day":"Martes","dayNumber":15,"theme":"Señales para dejar de improvisar y solicitar una evaluación","category":"Urgencia","service":"Fumigación a domicilio","pest":"Control integral de plagas","audience":"Personas que ya probaron aerosoles o limpieza, pero siguen viendo actividad en más de un punto del inmueble.","zone":"CDMX y zonas de servicio del Estado de México.","journey":"Consideración y contratación","objective":"Transformar frustración y recurrencia en una solicitud de cotización, sin prometer resultados ni tiempos no verificados.","reason":"Es una pieza de alta intención que no repite una plaga específica. Funciona como puente comercial para usuarios que aún no identifican el servicio correcto y permite dirigirlos al catálogo general de fumigaciones.","primaryKeyword":"fumigación a domicilio CDMX","secondaryTerms":["control de plagas cerca de mí","plaga que regresa después de fumigar","fumigadores CDMX","cotizar fumigación"],"hook":"¿La plaga regresa después de limpiar o usar aerosol? Deja de improvisar.","caption":"Ver insectos a diario, encontrar rastros en más de una habitación o notar que el problema vuelve después de usar aerosol son señales para dejar de improvisar.\n\nAntes de aplicar más productos, registra dónde aparece la actividad, evita mezclar químicos y solicita una evaluación del inmueble. Plaga Zero atiende distintas plagas en CDMX y zonas del Estado de México.\n\nRevisa las opciones de fumigación, llama o envía un mensaje por WhatsApp al 55 5011 8957 para pedir una cotización con tu ubicación y el problema observado.","cta":"Identifica el servicio y pide una cotización por llamada o WhatsApp.","url":"https://plagazero.com/","hashtags":["#FumigaciónADomicilio","#ControlDePlagas","#CDMX","#PlagaZero"],"imageDirection":"Propietario preocupado mostrando al técnico dos señales discretas: rastros cerca de un zoclo y actividad junto a una alacena. No destacar una plaga específica; comunicar diagnóstico antes de aplicar más productos.","imageText":"¿LA PLAGA REGRESA?\nDEJA DE IMPROVISAR","imagePrompt":"Crear una pieza comercial 1200 × 1200 px para Google Business Profile de Plaga Zero. Escena fotográfica premium en un hogar de CDMX: una persona muestra a un técnico profesional dos puntos de actividad discretos, uno junto a un zoclo y otro cerca de una alacena. No mostrar plagas en macro ni productos químicos visibles. El técnico debe proyectar análisis y confianza, con uniforme negro y acentos verdes. Paleta oscura, fondo negro/carbón, iluminación dirigida y acentos verdes oficiales de Plaga Zero. Integrar el logo oficial proporcionado arriba a la izquierda, intacto. Titular grande: “¿LA PLAGA REGRESA?”; subtítulo: “DEJA DE IMPROVISAR”. CTA: “PIDE UNA EVALUACIÓN”. Diseño limpio, transaccional y legible en móvil. Sin teléfono dentro de la imagen, precios, garantías, certificaciones, resultados absolutos ni iconos caricaturescos.","altText":"Técnico de Plaga Zero evaluando señales recurrentes de plagas en dos zonas de una vivienda en CDMX.","evidence":"La web oficial confirma el catálogo de fumigación, cobertura en CDMX y municipios conurbados, y el teléfono 55 5011 8957. La EPA recomienda evitar depender solo de aplicaciones aisladas y atender alimento, agua, refugio y accesos como parte del manejo integrado.","sources":[{"label":"Plaga Zero · Sitio oficial","url":"https://plagazero.com/"},{"label":"EPA · Control inteligente de plagas","url":"https://www.epa.gov/pesticides/smart-pest-control-protect-your-health"},{"label":"EPA · Prevención durante remodelaciones","url":"https://www.epa.gov/indoor-air-quality-iaq/addressing-indoor-environmental-concerns-during-remodeling"}],"urlVerified":"Verificada el 1 de septiembre de 2026","defaultNote":"Confirmar disponibilidad operativa antes de responder a solicitudes urgentes; el caption no promete atención inmediata.","status":"Planeado"},{"id":"pz-2026-09-17","date":"2026-09-17","day":"Jueves","dayNumber":17,"theme":"Grillos nocturnos: ubicar humedad, refugios y accesos","category":"Prevención","service":"Control de grillos","pest":"Grillos","audience":"Hogares, bodegas, locales y plantas bajas con patios, cartón almacenado o espacios húmedos.","zone":"Ciudad de México; especial interés en patios, sótanos, bodegas y accesos a nivel de calle.","journey":"Descubrimiento y consideración","objective":"Convertir una molestia nocturna reconocible en una revisión de accesos y una solicitud del servicio específico.","reason":"La página oficial vincula los grillos con lluvias, humedad y entradas en puertas, ventanas o drenajes. Es un tema estacional, distintivo y no repetido entre los ejes principales recuperados de julio y agosto.","primaryKeyword":"control de grillos CDMX","secondaryTerms":["grillos en casa","fumigación de grillos","grillos en patio","grillos en bodega"],"hook":"¿Escuchas grillos cada noche? El sonido puede ayudarte a ubicar el refugio.","caption":"¿Escuchas grillos por la noche en el patio, la bodega o la planta baja? La humedad, el cartón acumulado y las aberturas alrededor de puertas, ventanas o drenajes pueden facilitar que encuentren refugio.\n\nLocalizar por dónde entran y reducir esos puntos es parte del control. Si la presencia se repite, conviene evaluar las áreas húmedas y ocultas.\n\nConoce el servicio de control de grillos de Plaga Zero en CDMX y solicita una cotización.","cta":"Consulta el control de grillos y solicita una cotización.","url":"https://plagazero.com/control-de-plagas/de-grillos/","hashtags":["#ControlDeGrillos","#FumigaciónCDMX","#PrevenciónDePlagas","#PlagaZero"],"imageDirection":"Patio o bodega ordenada en una noche lluviosa, con reflejos húmedos y técnico revisando la parte inferior de una puerta. Un solo grillo pequeño y discreto puede aparecer lejos del texto.","imageText":"¿GRILLOS CADA NOCHE?\nUBICA LA ENTRADA","imagePrompt":"Diseñar una publicación cuadrada 1200 × 1200 px para Google Business Profile de Plaga Zero. Escena nocturna hiperrealista en un patio techado o bodega ordenada de CDMX después de la lluvia, con superficies ligeramente húmedas y un técnico profesional inspeccionando la parte inferior de una puerta, una rejilla y cajas almacenadas. Puede aparecer un solo grillo pequeño y discreto, nunca en macro. Base negra y grafito, reflejos verdes oficiales de Plaga Zero, luz cinematográfica y composición limpia. Integrar el logo oficial proporcionado en la esquina superior izquierda sin modificar. Texto principal: “¿GRILLOS CADA NOCHE?”; subtítulo: “UBICA LA ENTRADA”. CTA: “SOLICITA COTIZACIÓN”. Mantener márgenes seguros y alta legibilidad móvil. Sin teléfono, precios, garantías, plagas grotescas ni exceso de lluvia.","altText":"Técnico de Plaga Zero revisando la entrada de un patio húmedo por presencia recurrente de grillos en CDMX.","evidence":"La página oficial confirma el servicio y describe lluvias, humedad, grietas, drenajes y puertas como contexto de entrada o refugio. Conagua previó un repunte de lluvias en septiembre y octubre de 2026; la EPA recomienda reducir humedad y bloquear accesos.","sources":[{"label":"Plaga Zero · Control de grillos","url":"https://plagazero.com/control-de-plagas/de-grillos/"},{"label":"Conagua · Perspectiva de lluvias 2026","url":"https://www.gob.mx/conagua/prensa/el-gobierno-de-mexico-preve-inicio-favorable-de-lluvias-con-variaciones-asociadas-al-establecimiento-de-el-nino?hl=es-MX"},{"label":"EPA · Humedad y accesos de plagas","url":"https://www.epa.gov/indoor-air-quality-iaq/addressing-indoor-environmental-concerns-during-remodeling"}],"urlVerified":"Verificada el 1 de septiembre de 2026","defaultNote":"Usar un grillo pequeño y secundario; la escena debe comunicar humedad y acceso, no una infestación exagerada.","status":"Planeado"},{"id":"pz-2026-09-22","date":"2026-09-22","day":"Martes","dayNumber":22,"theme":"Arañas recurrentes: revisar refugios, accesos y otros insectos","category":"Educativa","service":"Fumigación de arañas","pest":"Arañas","audience":"Hogares, oficinas y bodegas que encuentran arañas o telarañas con frecuencia en zonas poco movidas.","zone":"Ciudad de México; espacios interiores, bodegas, clósets y rincones.","journey":"Descubrimiento y consideración","objective":"Explicar cuándo una observación recurrente merece evaluación y dirigir al servicio específico sin usar imágenes alarmistas.","reason":"Aporta variedad frente a las plagas protagonistas de julio y agosto. El enfoque en refugios, grietas y presencia de otros insectos ofrece educación útil y una salida comercial clara.","primaryKeyword":"fumigación de arañas CDMX","secondaryTerms":["arañas en casa","control de arañas","telarañas en bodega","fumigadores de arañas CDMX"],"hook":"Una telaraña aislada no es lo mismo que encontrar arañas de forma recurrente.","caption":"Una telaraña aislada no siempre indica una infestación, pero encontrar arañas con frecuencia en bodegas, clósets, esquinas o zonas poco movidas merece una revisión.\n\nEl control debe considerar grietas, desorden, humedad y la presencia de otros insectos que les sirven de alimento. Evita manipular ejemplares que no puedas identificar.\n\nPlaga Zero cuenta con fumigación de arañas en CDMX. Consulta el servicio y solicita una evaluación del espacio.","cta":"Revisa el servicio para arañas y solicita una evaluación.","url":"https://plagazero.com/fumigacion/de-aranas/","hashtags":["#FumigaciónDeArañas","#ControlDePlagasCDMX","#Prevención","#PlagaZero"],"imageDirection":"Bodega doméstica o clóset ordenado con una telaraña tenue en una esquina; técnico inspeccionando grietas. Evitar arañas grandes, especies peligrosas o dramatización.","imageText":"ARAÑAS RECURRENTES:\nREVISA REFUGIOS Y ACCESOS","imagePrompt":"Crear una imagen cuadrada 1200 × 1200 px para Google Business Profile de Plaga Zero. Fotografía publicitaria premium en una bodega doméstica, clóset o cuarto de almacenamiento limpio de CDMX. Mostrar a un técnico profesional con uniforme negro y detalles verdes revisando grietas y una esquina con una telaraña tenue. No mostrar arañas grandes, especies peligrosas, picaduras ni escenas alarmistas; si aparece una araña, debe ser pequeña y secundaria. Fondo negro/carbón con acentos verdes oficiales de Plaga Zero, iluminación dirigida y sensación de control. Integrar el logo oficial proporcionado arriba a la izquierda, sin redibujarlo. Titular: “ARAÑAS RECURRENTES:” y subtítulo “REVISA REFUGIOS Y ACCESOS”. CTA: “SOLICITA EVALUACIÓN”. Diseño limpio, móvil y con márgenes seguros. Sin teléfono, precio, garantía ni afirmaciones absolutas.","altText":"Técnico de Plaga Zero inspeccionando grietas y una telaraña discreta en un cuarto de almacenamiento de CDMX.","evidence":"La página oficial confirma la fumigación de arañas y menciona otros insectos, oscuridad y grietas entre las condiciones de presencia. La EPA recomienda reducir refugios, humedad y accesos como parte de la prevención de plagas interiores.","sources":[{"label":"Plaga Zero · Fumigación de arañas","url":"https://plagazero.com/fumigacion/de-aranas/"},{"label":"EPA · Manejo integrado de plagas","url":"https://www.epa.gov/indoor-air-quality-iaq/biological-contaminants-and-indoor-air-quality"},{"label":"EPA · Sellado de accesos","url":"https://www.epa.gov/indoorairplus/benefits-and-features-indoor-airplus-homes"}],"urlVerified":"Verificada el 1 de septiembre de 2026","defaultNote":"La imagen debe evitar especies identificables o peligrosas; comunicar revisión profesional, no miedo.","status":"Planeado"},{"id":"pz-2026-09-24","date":"2026-09-24","day":"Jueves","dayNumber":24,"theme":"Fumigaciones en Naucalpan para hogares y negocios","category":"Local","service":"Fumigaciones en Naucalpan","pest":"Control integral de plagas","audience":"Propietarios, arrendatarios, administradores y negocios que buscan atención local en Naucalpan.","zone":"Naucalpan de Juárez, Estado de México.","journey":"Contratación","objective":"Captar búsquedas locales de alta intención y llevar tráfico a una landing real, específica y vigente.","reason":"La web dispone de una página dedicada a Naucalpan y la localidad amplía el alcance más allá de CDMX. El mensaje evita inventar colonias, tiempos o precios y pide la información mínima necesaria para cotizar.","primaryKeyword":"fumigaciones en Naucalpan","secondaryTerms":["fumigación a domicilio Naucalpan","control de plagas Naucalpan","fumigadores en Naucalpan","fumigación para negocios Naucalpan"],"hook":"¿Buscas fumigación en Naucalpan? Empieza por identificar la plaga y las zonas con actividad.","caption":"¿Buscas fumigación en Naucalpan para casa, departamento, oficina o local? El primer paso es identificar la plaga, las áreas con actividad y los puntos de entrada antes de elegir el tratamiento.\n\nComparte tu colonia, tipo de inmueble y señales observadas para recibir una cotización acorde al caso. Plaga Zero cuenta con una página específica de atención en Naucalpan.\n\nConsulta la cobertura y solicita información del servicio.","cta":"Consulta fumigaciones en Naucalpan y solicita una cotización.","url":"https://plagazero.com/fumigaciones/naucalpan/","hashtags":["#FumigacionesNaucalpan","#ControlDePlagasNaucalpan","#EstadoDeMéxico","#PlagaZero"],"imageDirection":"Exterior residencial-comercial reconocible como zona metropolitana, sin usar monumentos falsos; técnico llegando a una propiedad moderna. Incluir etiqueta local clara “Naucalpan”.","imageText":"FUMIGACIÓN EN NAUCALPAN\nHOGAR Y NEGOCIO","imagePrompt":"Diseñar una pieza cuadrada 1200 × 1200 px para Google Business Profile de Plaga Zero con enfoque local en Naucalpan, Estado de México. Escena fotográfica hiperrealista de un técnico profesional llegando a una propiedad que combine contexto residencial y comercial de zona metropolitana; no usar monumentos inventados ni señales de tránsito falsas. Uniforme negro con acentos verdes, vehículo o equipo discreto y entorno limpio. Paleta negra/carbón con verdes oficiales de Plaga Zero. Integrar el logo oficial proporcionado en la esquina superior izquierda, sin modificar. Titular grande: “FUMIGACIÓN EN NAUCALPAN”; subtítulo: “HOGAR Y NEGOCIO”. CTA: “SOLICITA COTIZACIÓN”. Incluir una etiqueta geográfica discreta “ESTADO DE MÉXICO”. Diseño ejecutivo, local, móvil y transaccional. Sin teléfono, precios, garantías, colonias inventadas ni plagas grotescas.","altText":"Técnico de Plaga Zero llegando a una propiedad residencial y comercial para un servicio de fumigación en Naucalpan.","evidence":"La web oficial mantiene una landing específica de fumigaciones en Naucalpan y confirma atención residencial y comercial. La home incluye Naucalpan dentro de las localidades enlazadas de cobertura.","sources":[{"label":"Plaga Zero · Fumigaciones en Naucalpan","url":"https://plagazero.com/fumigaciones/naucalpan/"},{"label":"Plaga Zero · Cobertura y servicios","url":"https://plagazero.com/"}],"urlVerified":"Verificada el 1 de septiembre de 2026","defaultNote":"No incluir colonias concretas ni tiempos de llegada en la creatividad; confirmar cobertura al responder cada lead.","status":"Planeado"},{"id":"pz-2026-09-29","date":"2026-09-29","day":"Martes","dayNumber":29,"theme":"Fumigaciones en Tlalpan: actuar desde el primer indicio","category":"Local","service":"Fumigaciones en Tlalpan","pest":"Control integral de plagas","audience":"Hogares, administradores y negocios de Tlalpan con patios, áreas verdes, bodegas o espacios húmedos.","zone":"Alcaldía Tlalpan, Ciudad de México.","journey":"Contratación","objective":"Cerrar el mes con una pieza local de alta intención que lleve a una landing real y facilite solicitudes con colonia, inmueble y plaga.","reason":"Tlalpan cuenta con una página local propia. La landing menciona vegetación, humedad, patios y edificaciones antiguas como contextos que requieren atención; el caption usa esos factores con prudencia y no promete resultados ni disponibilidad.","primaryKeyword":"fumigaciones en Tlalpan","secondaryTerms":["fumigación a domicilio Tlalpan","control de plagas Tlalpan","fumigadores en Tlalpan","fumigación para negocios Tlalpan"],"hook":"En Tlalpan, una señal pequeña en patios o zonas húmedas merece atención antes de extenderse.","caption":"En Tlalpan, patios, áreas verdes, bodegas, grietas y espacios con humedad pueden requerir una revisión más detallada cuando aparecen plagas de forma recurrente.\n\nNo hace falta esperar a que el problema llegue a varias habitaciones: registra dónde ves actividad y solicita una evaluación del inmueble. Plaga Zero ofrece fumigación residencial y comercial en Tlalpan.\n\nConoce el servicio y pide una cotización con tu colonia y tipo de plaga.","cta":"Consulta fumigaciones en Tlalpan y solicita una cotización.","url":"https://plagazero.com/fumigaciones/tlalpan/","hashtags":["#FumigacionesTlalpan","#ControlDePlagasTlalpan","#CDMX","#PlagaZero"],"imageDirection":"Casa o negocio de Tlalpan con patio verde y arquitectura urbana realista; técnico revisando el perímetro y una unión húmeda. No usar imágenes de bosque ni referencias geográficas inventadas.","imageText":"TLALPAN:\nATIENDE EL PRIMER INDICIO","imagePrompt":"Crear una publicación cuadrada 1200 × 1200 px para Google Business Profile de Plaga Zero con enfoque local en Tlalpan, CDMX. Escena fotográfica hiperrealista de una casa o pequeño negocio urbano con patio verde, muros y zona húmeda; un técnico profesional con uniforme negro y acentos verdes inspecciona el perímetro, una grieta y la unión entre patio y puerta. No convertir el fondo en bosque ni inventar monumentos. Base visual negra y carbón con verdes oficiales de Plaga Zero, iluminación premium y composición limpia. Integrar el logo oficial proporcionado arriba a la izquierda, intacto. Titular grande: “TLALPAN:” y subtítulo “ATIENDE EL PRIMER INDICIO”. CTA: “SOLICITA COTIZACIÓN”. Añadir etiqueta discreta “CDMX”. Sin teléfono, precios, garantías, tiempos de respuesta ni plagas desagradables.","altText":"Técnico de Plaga Zero inspeccionando el perímetro y una zona húmeda de una propiedad para fumigación en Tlalpan.","evidence":"La landing oficial confirma fumigación residencial y comercial en Tlalpan y menciona vegetación, humedad, patios y construcciones antiguas como factores de contexto. Conagua previó un repunte de lluvias en septiembre y octubre de 2026.","sources":[{"label":"Plaga Zero · Fumigaciones en Tlalpan","url":"https://plagazero.com/fumigaciones/tlalpan/"},{"label":"Conagua · Perspectiva de lluvias 2026","url":"https://www.gob.mx/conagua/prensa/el-gobierno-de-mexico-preve-inicio-favorable-de-lluvias-con-variaciones-asociadas-al-establecimiento-de-el-nino?hl=es-MX"},{"label":"EPA · Humedad, refugios y accesos","url":"https://www.epa.gov/indoor-air-quality-iaq/addressing-indoor-environmental-concerns-during-remodeling"}],"urlVerified":"Verificada el 1 de septiembre de 2026","defaultNote":"Corregir cualquier referencia visual que parezca rural o genérica; debe sentirse como Tlalpan urbano y residencial.","status":"Planeado"}];
+    const STORAGE_KEY = "plagaZeroGMBSeptiembre2026_v1";
+    const CAMPAIGN_ID = "plaga-zero-gmb-septiembre-2026";
+    const STATUSES = ["Planeado","En revisión","Aprobado","Publicado"];
+    const STATUS_POINTS = {"Planeado":0,"En revisión":1,"Aprobado":2,"Publicado":3};
+    const state = {records:{},view:"both"};
+
+    const $ = (selector, root=document) => root.querySelector(selector);
+    const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
+    const esc = value => String(value).replace(/[&<>'"]/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[char]));
+    const norm = value => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+    const formatDate = iso => new Intl.DateTimeFormat("es-MX",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(new Date(iso+"T12:00:00Z"));
+
+    function defaultRecords(){
+      return Object.fromEntries(posts.map(post => [post.id,{status:post.status,notes:post.defaultNote}]));
+    }
+    function loadState(){
+      state.records = defaultRecords();
+      try{
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+        if(saved && saved.records){
+          posts.forEach(post => {
+            const rec = saved.records[post.id];
+            if(rec){
+              state.records[post.id] = {
+                status: STATUSES.includes(rec.status) ? rec.status : post.status,
+                notes: typeof rec.notes === "string" ? rec.notes : post.defaultNote
+              };
+            }
+          });
+          if(["calendar","cards","both"].includes(saved.view)) state.view=saved.view;
+        }
+      }catch(error){console.warn("No se pudo leer el respaldo local",error)}
+    }
+    function saveState(){
+      localStorage.setItem(STORAGE_KEY,JSON.stringify({campaign:CAMPAIGN_ID,version:1,savedAt:new Date().toISOString(),view:state.view,records:state.records}));
+    }
+    function showToast(message){
+      const toast=$("#toast");toast.textContent=message;toast.classList.add("show");
+      clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>toast.classList.remove("show"),1900);
+    }
+    async function copyText(text,label){
+      try{await navigator.clipboard.writeText(text)}catch(error){
+        const area=document.createElement("textarea");area.value=text;area.style.position="fixed";area.style.opacity="0";document.body.appendChild(area);area.select();document.execCommand("copy");area.remove();
+      }
+      showToast(label);
+    }
+    function getFullPost(post){
+      return [
+        `${post.day} ${post.dayNumber} de septiembre de 2026`,
+        `Tema: ${post.theme}`,
+        `Categoría: ${post.category}`,
+        `Servicio: ${post.service}`,
+        `Gancho: ${post.hook}`,
+        "",
+        post.caption,
+        "",
+        `CTA: ${post.cta}`,
+        `URL: ${post.url}`,
+        `Hashtags: ${post.hashtags.join(" ")}`,
+        "",
+        `Dirección de imagen: ${post.imageDirection}`,
+        `Texto en imagen: ${post.imageText.replace(/\n/g," / ")}`,
+        `Prompt: ${post.imagePrompt}`,
+        `Alt text: ${post.altText}`
+      ].join("\n");
+    }
+    function populateFilters(){
+      const dateFilter=$("#dateFilter"),serviceFilter=$("#serviceFilter"),categoryFilter=$("#categoryFilter"),statusFilter=$("#statusFilter");
+      posts.forEach(post=>dateFilter.insertAdjacentHTML("beforeend",`<option value="${esc(post.date)}">${esc(post.day)} ${post.dayNumber} sep</option>`));
+      [...new Set(posts.map(p=>p.service))].sort((a,b)=>a.localeCompare(b,"es")).forEach(value=>serviceFilter.insertAdjacentHTML("beforeend",`<option value="${esc(value)}">${esc(value)}</option>`));
+      [...new Set(posts.map(p=>p.category))].sort((a,b)=>a.localeCompare(b,"es")).forEach(value=>categoryFilter.insertAdjacentHTML("beforeend",`<option value="${esc(value)}">${esc(value)}</option>`));
+      STATUSES.forEach(value=>statusFilter.insertAdjacentHTML("beforeend",`<option value="${esc(value)}">${esc(value)}</option>`));
+    }
+    function renderCalendar(){
+      const grid=$("#calendarGrid");
+      const firstDay=2; // martes in Monday-first grid
+      const daysInMonth=30;
+      let html="";
+      for(let i=1;i<firstDay;i++) html += `<div class="cal-day is-empty" role="gridcell" aria-hidden="true"></div>`;
+      for(let day=1;day<=daysInMonth;day++){
+        const post=posts.find(item=>item.dayNumber===day);
+        html += `<div class="cal-day${post?" is-post":""}" data-calendar-day="${day}" role="gridcell" aria-label="${day} de septiembre${post?`, publicación: ${esc(post.theme)}`:""}">
+          <div class="cal-number"><span>${day}</span>${post?"<i aria-hidden=\"true\"></i>":""}</div>
+          ${post?`<button class="cal-post" type="button" data-jump="${esc(post.id)}"><strong>${esc(post.theme)}</strong><span>${esc(post.category)} · ${esc(post.service)}</span><span class="cal-status" data-cal-status="${esc(post.id)}">${esc(state.records[post.id].status)}</span></button>`:""}
+        </div>`;
+      }
+      const used=(firstDay-1)+daysInMonth;const remaining=(7-(used%7))%7;
+      for(let i=0;i<remaining;i++) html += `<div class="cal-day is-empty" role="gridcell" aria-hidden="true"></div>`;
+      grid.innerHTML=html;
+    }
+    function sourceList(post){
+      return `<ul class="source-list">${post.sources.map(source=>`<li><a href="${esc(source.url)}" target="_blank" rel="noreferrer">${esc(source.label)}</a></li>`).join("")}</ul>`;
+    }
+    function renderPosts(){
+      const list=$("#postList");
+      list.innerHTML=posts.map((post,index)=>{
+        const record=state.records[post.id];
+        return `<article class="post-card" id="${esc(post.id)}" data-post-id="${esc(post.id)}">
+          <header class="post-top">
+            <div class="date-block"><span>${esc(post.day)}</span><strong>${post.dayNumber}</strong><small>Septiembre 2026</small></div>
+            <div class="post-heading">
+              <div class="tags"><span class="tag category">${esc(post.category)}</span><span class="tag">${esc(post.service)}</span><span class="tag">${esc(post.journey)}</span></div>
+              <h3>${String(index+1).padStart(2,"0")} · ${esc(post.theme)}</h3>
+              <p>${esc(post.objective)}</p>
+            </div>
+            <div class="state-box"><label for="status-${esc(post.id)}">Estado</label><select class="status-select" id="status-${esc(post.id)}" data-status-id="${esc(post.id)}">${STATUSES.map(status=>`<option value="${esc(status)}"${status===record.status?" selected":""}>${esc(status)}</option>`).join("")}</select></div>
+          </header>
+          <div class="post-core">
+            <div class="caption-box"><span class="mini-label">Caption listo para Google Business Profile</span><p class="caption-text">${esc(post.caption)}</p></div>
+            <aside class="hook-box"><div><span class="mini-label">Gancho</span><blockquote>${esc(post.hook)}</blockquote></div><div><span class="mini-label">Destino · ${esc(post.urlVerified)}</span><a class="url-link" href="${esc(post.url)}" target="_blank" rel="noreferrer">${esc(post.url)}</a></div></aside>
+          </div>
+          <div class="post-actions">
+            <button class="btn btn-primary" type="button" data-copy="caption" data-id="${esc(post.id)}">Copiar caption</button>
+            <button class="btn" type="button" data-copy="url" data-id="${esc(post.id)}">Copiar URL</button>
+            <button class="btn" type="button" data-copy="hashtags" data-id="${esc(post.id)}">Copiar hashtags</button>
+            <button class="btn" type="button" data-copy="prompt" data-id="${esc(post.id)}">Copiar prompt</button>
+            <button class="btn" type="button" data-copy="full" data-id="${esc(post.id)}">Copiar publicación completa</button>
+            <a class="btn" href="${esc(post.url)}" target="_blank" rel="noreferrer">Abrir URL ↗</a>
+          </div>
+          <details class="post-details">
+            <summary>Ver estrategia, SEO, creatividad, evidencia y notas</summary>
+            <div class="details-body">
+              <div class="detail-grid">
+                <div class="detail-item"><strong>Público objetivo</strong><p>${esc(post.audience)}</p></div>
+                <div class="detail-item"><strong>Zona / intención local</strong><p>${esc(post.zone)}</p></div>
+                <div class="detail-item"><strong>Customer journey</strong><p>${esc(post.journey)}</p></div>
+                <div class="detail-item two"><strong>Justificación estratégica</strong><p>${esc(post.reason)}</p></div>
+                <div class="detail-item"><strong>Objetivo</strong><p>${esc(post.objective)}</p></div>
+                <div class="detail-item"><strong>Palabra clave principal</strong><p>${esc(post.primaryKeyword)}</p></div>
+                <div class="detail-item"><strong>Consultas secundarias</strong><ul>${post.secondaryTerms.map(term=>`<li>${esc(term)}</li>`).join("")}</ul></div>
+                <div class="detail-item"><strong>CTA</strong><p>${esc(post.cta)}</p></div>
+                <div class="detail-item"><strong>Hashtags</strong><p>${esc(post.hashtags.join(" "))}</p></div>
+                <div class="detail-item two"><strong>Dirección de imagen</strong><p>${esc(post.imageDirection)}</p></div>
+                <div class="detail-item"><strong>Alt text</strong><p>${esc(post.altText)}</p></div>
+              </div>
+              <div class="creative-grid">
+                <div class="creative-preview" aria-label="Vista conceptual de la jerarquía de la imagen">
+                  <div class="creative-brand"><i></i> PLAGA ZERO · GMB</div>
+                  <div class="creative-copy"><span>Dirección 1200 × 1200</span><strong>${esc(post.imageText)}</strong><b>${esc(post.cta.split(".")[0].toUpperCase())}</b></div>
+                </div>
+                <div class="prompt-box"><span class="mini-label">Prompt completo de imagen</span><p>${esc(post.imagePrompt)}</p></div>
+              </div>
+              <div class="detail-grid">
+                <div class="detail-item two"><strong>Fuente o evidencia utilizada</strong><p>${esc(post.evidence)}</p></div>
+                <div class="detail-item"><strong>Enlaces de evidencia</strong>${sourceList(post)}</div>
+                <div class="detail-item wide"><strong>Notas editables · guardado automático</strong><textarea class="notes" data-notes-id="${esc(post.id)}" aria-label="Notas de ${esc(post.theme)}">${esc(record.notes)}</textarea></div>
+              </div>
+            </div>
+          </details>
+        </article>`;
+      }).join("");
+    }
+    function matches(post){
+      const q=norm($("#searchInput").value);
+      const date=$("#dateFilter").value,service=$("#serviceFilter").value,category=$("#categoryFilter").value,status=$("#statusFilter").value;
+      const record=state.records[post.id];
+      const haystack=norm([post.theme,post.category,post.service,post.pest,post.audience,post.zone,post.journey,post.objective,post.reason,post.primaryKeyword,post.secondaryTerms.join(" "),post.hook,post.caption,post.cta,post.url,post.hashtags.join(" "),post.imageDirection,post.imageText,post.imagePrompt,post.altText,post.evidence,record.notes,record.status].join(" "));
+      return (!q || haystack.includes(q)) && (date==="all" || post.date===date) && (service==="all" || post.service===service) && (category==="all" || post.category===category) && (status==="all" || record.status===status);
+    }
+    function applyFilters(){
+      let visible=0;
+      posts.forEach(post=>{
+        const show=matches(post);visible+=show?1:0;
+        const card=document.getElementById(post.id);if(card) card.hidden=!show;
+        const day=$(`[data-calendar-day="${post.dayNumber}"]`);if(day) day.classList.toggle("is-filtered",!show);
+      });
+      $("#resultCount").textContent=`${visible} de ${posts.length} publicaciones visibles`;
+      $("#emptyState").hidden=visible!==0;
+    }
+    function updateCountsAndProgress(){
+      const counts=Object.fromEntries(STATUSES.map(status=>[status,0]));let points=0;
+      posts.forEach(post=>{const status=state.records[post.id].status;counts[status]++;points+=STATUS_POINTS[status];const cal=$(`[data-cal-status="${post.id}"]`);if(cal) cal.textContent=status;});
+      $("#countPlaneado").textContent=counts["Planeado"];
+      $("#countRevision").textContent=counts["En revisión"];
+      $("#countAprobado").textContent=counts["Aprobado"];
+      $("#countPublicado").textContent=counts["Publicado"];
+      const percent=Math.round(points/(posts.length*3)*100);
+      $("#progressLabel").textContent=`${percent} %`;
+      $("#progressRingText").textContent=`${percent}%`;
+      $("#progressRing").style.setProperty("--progress",percent);
+      $("#progressFill").style.width=`${percent}%`;
+    }
+    function setView(view){
+      if(!["calendar","cards","both"].includes(view)) return;
+      state.view=view;document.body.dataset.view=view;
+      $$('[data-view]').forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.view===view)));
+      saveState();
+    }
+    function exportBackup(){
+      const payload={campaign:CAMPAIGN_ID,version:1,exportedAt:new Date().toISOString(),title:"Plaga Zero · Calendario GMB · Septiembre 2026",records:state.records};
+      const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json;charset=utf-8"});
+      const url=URL.createObjectURL(blob);const link=document.createElement("a");link.href=url;link.download="plaga-zero-gmb-septiembre-2026-respaldo.json";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);showToast("Respaldo JSON exportado");
+    }
+    function importBackup(file){
+      const reader=new FileReader();
+      reader.onload=()=>{
+        try{
+          const data=JSON.parse(reader.result);
+          if(data.campaign!==CAMPAIGN_ID || !data.records || typeof data.records!=="object") throw new Error("Archivo incompatible");
+          if(!confirm("La importación reemplazará los estados y notas guardados de este dashboard. ¿Continuar?")) return;
+          posts.forEach(post=>{
+            const incoming=data.records[post.id];if(!incoming) return;
+            state.records[post.id]={status:STATUSES.includes(incoming.status)?incoming.status:post.status,notes:typeof incoming.notes==="string"?incoming.notes:post.defaultNote};
+          });
+          saveState();renderPosts();renderCalendar();updateCountsAndProgress();applyFilters();showToast("Respaldo importado correctamente");
+        }catch(error){alert("No se pudo importar el respaldo. Verifica que sea el JSON exportado por este dashboard.");}
+        finally{$("#importFile").value="";}
+      };
+      reader.readAsText(file);
+    }
+    function printClean(){
+      const details=$$("details.post-details");const previous=details.map(item=>item.open);details.forEach(item=>item.open=true);
+      setTimeout(()=>{window.print();setTimeout(()=>details.forEach((item,index)=>item.open=previous[index]),250)},80);
+    }
+    function bindEvents(){
+      ["searchInput","dateFilter","serviceFilter","categoryFilter","statusFilter"].forEach(id=>$("#"+id).addEventListener(id==="searchInput"?"input":"change",applyFilters));
+      $("#postList").addEventListener("change",event=>{
+        const select=event.target.closest("[data-status-id]");if(select){state.records[select.dataset.statusId].status=select.value;saveState();updateCountsAndProgress();applyFilters();showToast("Estado actualizado");}
+      });
+      let noteTimer;
+      $("#postList").addEventListener("input",event=>{
+        const area=event.target.closest("[data-notes-id]");if(area){state.records[area.dataset.notesId].notes=area.value;clearTimeout(noteTimer);noteTimer=setTimeout(()=>{saveState();showToast("Nota guardada")},500);}
+      });
+      $("#postList").addEventListener("click",event=>{
+        const button=event.target.closest("[data-copy]");if(!button)return;
+        const post=posts.find(item=>item.id===button.dataset.id);if(!post)return;
+        const type=button.dataset.copy;
+        const map={caption:[post.caption,"Caption copiado"],url:[post.url,"URL copiada"],hashtags:[post.hashtags.join(" "),"Hashtags copiados"],prompt:[post.imagePrompt,"Prompt copiado"],full:[getFullPost(post),"Publicación completa copiada"]};
+        copyText(...map[type]);
+      });
+      $("#calendarGrid").addEventListener("click",event=>{
+        const button=event.target.closest("[data-jump]");if(!button)return;
+        setView("both");const card=document.getElementById(button.dataset.jump);if(card){card.hidden=false;card.querySelector("details").open=true;card.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>card.querySelector("summary").focus(),500);}
+      });
+      $$("[data-view]").forEach(button=>button.addEventListener("click",()=>setView(button.dataset.view)));
+      $$(".status-card").forEach(button=>button.addEventListener("click",()=>{$("#statusFilter").value=button.dataset.state;applyFilters();$("#workspace").scrollIntoView({behavior:"smooth"});}));
+      $("#expandAll").addEventListener("click",()=>$$('details.post-details').filter(d=>!d.closest("article").hidden).forEach(d=>d.open=true));
+      $("#collapseAll").addEventListener("click",()=>$$('details.post-details').forEach(d=>d.open=false));
+      $("#clearFilters").addEventListener("click",()=>{$("#searchInput").value="";["dateFilter","serviceFilter","categoryFilter","statusFilter"].forEach(id=>$("#"+id).value="all");applyFilters();showToast("Filtros restablecidos")});
+      ["exportJson","exportTop"].forEach(id=>$("#"+id).addEventListener("click",exportBackup));
+      $("#importJson").addEventListener("click",()=>$("#importFile").click());
+      $("#importFile").addEventListener("change",event=>{if(event.target.files[0])importBackup(event.target.files[0])});
+      ["printDashboard","printTop"].forEach(id=>$("#"+id).addEventListener("click",printClean));
+      $("#resetData").addEventListener("click",()=>{
+        if(!confirm("Esto borrará todos los estados y notas guardados en este navegador y restaurará los valores iniciales. ¿Continuar?"))return;
+        localStorage.removeItem(STORAGE_KEY);state.records=defaultRecords();state.view="both";renderPosts();renderCalendar();setView("both");updateCountsAndProgress();applyFilters();showToast("Datos reiniciados");
+      });
+      $("#mobileJump").addEventListener("click",()=>$("#controls").scrollIntoView({behavior:"smooth",block:"start"}));
+      document.addEventListener("keydown",event=>{
+        if(event.key==="/" && !/input|textarea|select/i.test(document.activeElement.tagName)){event.preventDefault();$("#searchInput").focus();}
+        if(event.key==="Escape" && document.activeElement===$("#searchInput")){$("#searchInput").value="";applyFilters();}
+      });
+    }
+    function initialise(){
+      loadState();populateFilters();renderCalendar();renderPosts();setView(state.view);updateCountsAndProgress();applyFilters();bindEvents();
+    }
+    initialise();
+  </script>
+</body>
+</html>
